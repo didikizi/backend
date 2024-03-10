@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "swaggerviewer:openapi": "/api/shop.yaml"
+    }
+}

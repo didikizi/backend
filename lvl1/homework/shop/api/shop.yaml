@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: My perfect API!
+  description: My first progect
+  version: 1.0.0
+  contact: 
+    name: Vadim
+    email: vadem4443@mail.ru
+
+servers:
+  - url: "https://localhost:8080"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int64
+        username:
+          type: string
+          format: string
+        email:
+          type: string
+          format: string
+        password:
+          type: string
+          format: string
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        itemname:
+          type: string
+          format: string
+        itemcost:
+          type: string
+          format: string
+        picture:
+          type: string
+          format: string
+
+paths:
+  /user:
+    summary: Работа с сущностью
+    post:
+      tags:
+        - USER
+      summary: Создание новой сущности
+      operationId: Create User
+      requestBody:
+        description: Структура объекта User, которую следует передавть в запросе
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true    
+      responses:
+        '4XX':
+          description: Invalid input
+          content: {}
+        '200':
+          description: Ok
+          content: {}
+      x-codegen-request-body-name: body
+    get: 
+      tags:
+        - USER
+      summary: Получение объекта Юзер
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Ok
+  /user/{userId}:
+    get:
+      tags:
+        - USER
+      summary: Получение объекта по Id
+      parameters:
+      - name: userId
+        in: path
+        description: ID искомого User
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Невалидный ID
+          content: {}
+        '404':
+          description: Такого пользователя нет
+          content: {}
+  /user/login:
+    post:
+      tags:
+        - USER
+      operationId: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Ok
+          content: {}
+        '404':
+          description:  Пользователь не найден
+          content: {}
+        '400':
+          description:  Невалидные данные пользователя
+          content: {}
+      x-codegen-request-body-name: body
+  /user/logout:
+    post:
+      tags:
+        - USER
+      operationId: Login
+      responses:
+        '200':
+          description: Ok
+          content: {}
+        '4XX':
+          description:  Не предвиденая ошибка
+          content: {}
+      x-codegen-request-body-name: body
+
+
+
+
+
+
+
+
+
+
+
